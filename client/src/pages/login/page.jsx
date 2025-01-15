@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import LoginImage from "../../../public/Mosaic.png";
 import Logo from "../../../public/XMLID_127_.png";
-import MagicKey from '../../../public/magic-line.png'
+import MagicKey from "../../../public/magic-line.png";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ export default function Login() {
         <div className="max-w-md w-full space-y-8 border-2 border-white rounded-md bg-[#1F2A37] p-6">
           <div className="">
             <div className="text-center flex justify-center items-center flex-col">
-            <img src={Logo} alt="XOXO COINS" className="h-10 w-auto" />
+              <img src={Logo} alt="XOXO COINS" className="h-10 w-auto" />
             </div>
             <h2 className="mt-6 text-xl font-semibold text-white">
               Sign in to our platform
@@ -107,13 +107,15 @@ export default function Login() {
                 </div>
               </div>
 
-              <button
-                type="submit"
-                className="w-full flex text-black justify-center items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium  bg-white"
-              >
-               <img src={MagicKey} alt="" className="mr-1" />
-                Login with Private Key
-              </button>
+              <Link to={"/home"}>
+                <button
+                  type="submit"
+                  className="w-full flex mt-2 text-black justify-center items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium  bg-white"
+                >
+                  <img src={MagicKey} alt="" className="mr-1" />
+                  Login with Private Key
+                </button>
+              </Link>
 
               <div className=" text-sm">
                 <span className="text-gray-400">Not registered? </span>

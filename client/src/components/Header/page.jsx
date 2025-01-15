@@ -5,11 +5,11 @@ import ProfileLogo from "../../../public/Ellipse 27.png";
 import { Link } from "react-router-dom";
 
 const navItems = [
-  { name: "Home", to: "/" },
-  { name: "Mini NFT", to: "/" },
-  { name: "Transfer NFT", to: "/" },
-  { name: "My NFTs", to: "/" },
-  { name: "About", to: "/" },
+  { name: "Home", to: "/home" },
+  { name: "Mint NFT", to: "/dashboard/mint-nfts" },
+  { name: "Transfer NFT", to: "/dashboard/transfer-nft" },
+  { name: "My NFTs", to: "/dashboard/my-nft" },
+  { name: "About", to: "/home" },
 ];
 
 const Page = () => {
@@ -23,9 +23,9 @@ const Page = () => {
       <div className=" px-4 py-8  pb-3 sm:px-6 lg:px-8 ">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
-            <a href="/" className="flex items-center">
+            <Link to={"/home"} className="flex items-center">
               <img src={XoxoLogo} alt="XOXO COINS" className="h-10 w-auto" />
-            </a>
+            </Link>
           </div>
 
           <div className="hidden sm:flex sm:space-x-8 items-center">

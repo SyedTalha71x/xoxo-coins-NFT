@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import FooterImage from "../../../public/div.png";
+import { Link } from "react-router-dom";
 
 const Page = () => {
   return (
@@ -19,10 +20,10 @@ const Page = () => {
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">Explore</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-white text-sm">Home</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white text-sm">Mini NFT</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white text-sm">Transfer NFT</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white text-sm">My NFTs</a></li>
+              <li><Link to={"/home"} className="text-gray-400 hover:text-white text-sm">Home</Link></li>
+              <li><Link to={"/dashboard/mint-nfts"} className="text-gray-400 hover:text-white text-sm">Mini NFT</Link></li>
+              <li><Link to={"/dashboard/transfer-nft"} className="text-gray-400 hover:text-white text-sm">Transfer NFT</Link></li>
+              <li><Link to={"/dashboard/my-nft"} className="text-gray-400 hover:text-white text-sm">My NFTs</Link></li>
             </ul>
           </div>
 

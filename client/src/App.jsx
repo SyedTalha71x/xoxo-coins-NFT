@@ -27,15 +27,15 @@ function App() {
 function MainApp() {
   const location = useLocation();
 
-  const isDashboardRoute = location.pathname.startsWith("/dashboard");
+  const hideHeaderFooter = location.pathname.startsWith("/dashboard") || location.pathname === "/";
 
   return (
     <div className="">
-      {!isDashboardRoute && location.pathname !== "/login" && <Header />}
+      {!hideHeaderFooter && <Header />}
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="login" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Login />} />
 
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route path="overview" element={<Overview />} />
@@ -45,9 +45,10 @@ function MainApp() {
         </Route>
       </Routes>
 
-      {!isDashboardRoute && location.pathname !== "/login" && <Footer />}
+      {!hideHeaderFooter && <Footer />}
     </div>
   );
 }
+
 
 export default App;
