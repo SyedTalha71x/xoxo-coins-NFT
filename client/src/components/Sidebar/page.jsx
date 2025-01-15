@@ -25,9 +25,7 @@ const Sidebar = () => {
 
   return (
     <div>
-     {isSidebarOpen === true &&  <div className="fixed inset-0 bg-black bg-opacity-50">
-
-      </div>}
+     
       <div
         className={`lg:w-64 w-[270px] h-screen  bg-[#1F2A37] md:translate-x-0 border-r-1 border-slate-400 text-white fixed left-0 z-30   transform transition-transform duration-300 ease-in-out ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"

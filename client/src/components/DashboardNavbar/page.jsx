@@ -10,16 +10,16 @@ import {  useDarkMode } from "../../Context/StateContext";
 const Page = () => {
   const {setIsSidebarOpen, isSidebarOpen} = useDarkMode();
   return (
-    <div className="bg-[#1F2A37] z-50 p-4 border-b-2 sticky top-0 border-black text-white flex items-center">
-      <div className="lg:hidden p-3 fixed top-0 left-0 right-0 z-50 bg-[#1F2A37]">
+    <div className="bg-[#1F2A37]  p-4 border-b-2 sticky top-0 border-black text-white flex items-center">
+      <div className="flex justify-between max-lg:justify-end relative items-center w-full ">
+      <div className="lg:hidden absolute left-0">
         <FiMenu
-          size={30}
+          size={20}
           className="text-white cursor-pointer"
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         />
       </div>
-      <div className="flex justify-between items-center w-full ">
-        <div className="700">
+        <div className="max-lg:hidden ">
           <img src={Logo} alt="Logo" className="h-8 w-auto" />
         </div>
         <div className="flex items-center space-x-4">
