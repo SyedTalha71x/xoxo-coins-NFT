@@ -242,14 +242,14 @@ export default function Page() {
                   type="submit"
                   className={`w-full flex justify-center border-[1px] border-slate-200 items-center rounded-full text-sm py-2 text-center transition-colors ${
                     isComplete
-                      ? "bg-green-500 text-white"
-                      : "bg-white text-black"
+                      ? "bg-[#00C853] text-white"
+                      : "bg-white text-white"
                   }`}
                 >
                   <img
                     src={MagicKey || "/placeholder.svg"}
                     alt="Mint"
-                    className="w-5 h-5 mr-2"
+                    className="w-5 h-5 mr-2 "
                   />
                   <span className={isComplete ? "text-white" : "text-black"}>
                     {isComplete ? "NFT Mint Successful" : "Transfer Ownership"}

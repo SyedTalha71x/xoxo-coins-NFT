@@ -217,69 +217,71 @@ export default function Overview() {
 
         <div className="col-span-1 lg:col-span-3">
           <div className="bg-zinc-900 rounded-xl p-4 overflow-x-auto">
-            <table className="w-full border-collapse">
-              <thead className="">
-                <tr className="text-gray-400 border-b border-gray-700 text-sm">
-                  <th className="text-left py-2">TRANSACTION</th>
-                  <th className="text-left py-2">DATE & TIME</th>
-                  <th className="text-left py-2">AMOUNT</th>
-                  <th className="text-left py-2">STATUS</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  {
-                    transaction: "Payment from Bonnie Green",
-                    date: "Apr 23, 2021",
-                    amount: "$2300",
-                    status: "Completed",
-                  },
-                  {
-                    transaction: "Payment refund to #00910",
-                    date: "Apr 23, 2021",
-                    amount: "$670",
-                    status: "Completed",
-                  },
-                  {
-                    transaction: "Payment failed from #087651",
-                    date: "Apr 18, 2021",
-                    amount: "$234",
-                    status: "Cancelled",
-                  },
-                  {
-                    transaction: "Payment from Lana Byrd",
-                    date: "Apr 15, 2021",
-                    amount: "$5000",
-                    status: "In progress",
-                  },
-                  {
-                    transaction: "Payment from Jese Leos",
-                    date: "Apr 15, 2021",
-                    amount: "$2300",
-                    status: "Completed",
-                  },
-                ].map((item, index) => (
-                  <tr key={index} className="border-t border-zinc-800">
-                    <td className="py-3">{item.transaction}</td>
-                    <td className="py-3">{item.date}</td>
-                    <td className="py-3">{item.amount}</td>
-                    <td className="py-3">
-                      <span
-                        className={`px-2 py-1 rounded-md text-xs ${
-                          item.status === "Completed"
-                            ? "bg-[#DEF7EC] text-[#03543F]"
-                            : item.status === "Cancelled"
-                            ? "bg-red-100 text-[#03543F]"
-                            : "bg-purple-100 text-blue-800"
-                        }`}
-                      >
-                        {item.status}
-                      </span>
-                    </td>
+            <div className="min-w-[800px]">
+              <table className="w-full border-collapse">
+                <thead className="">
+                  <tr className="text-gray-400 border-b border-gray-700 text-sm">
+                    <th className="text-left py-2">TRANSACTION</th>
+                    <th className="text-left py-2">DATE & TIME</th>
+                    <th className="text-left py-2">AMOUNT</th>
+                    <th className="text-left py-2">STATUS</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {[
+                    {
+                      transaction: "Payment from Bonnie Green",
+                      date: "Apr 23, 2021",
+                      amount: "$2300",
+                      status: "Completed",
+                    },
+                    {
+                      transaction: "Payment refund to #00910",
+                      date: "Apr 23, 2021",
+                      amount: "$670",
+                      status: "Completed",
+                    },
+                    {
+                      transaction: "Payment failed from #087651",
+                      date: "Apr 18, 2021",
+                      amount: "$234",
+                      status: "Cancelled",
+                    },
+                    {
+                      transaction: "Payment from Lana Byrd",
+                      date: "Apr 15, 2021",
+                      amount: "$5000",
+                      status: "In progress",
+                    },
+                    {
+                      transaction: "Payment from Jese Leos",
+                      date: "Apr 15, 2021",
+                      amount: "$2300",
+                      status: "Completed",
+                    },
+                  ].map((item, index) => (
+                    <tr key={index} className="border-t border-zinc-800">
+                      <td className="py-3">{item.transaction}</td>
+                      <td className="py-3">{item.date}</td>
+                      <td className="py-3">{item.amount}</td>
+                      <td className="py-3">
+                        <span
+                          className={`px-2 py-1 rounded-md text-xs ${
+                            item.status === "Completed"
+                              ? "bg-[#DEF7EC] text-[#03543F]"
+                              : item.status === "Cancelled"
+                              ? "bg-red-100 text-[#03543F]"
+                              : "bg-purple-100 text-blue-800"
+                          }`}
+                        >
+                          {item.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

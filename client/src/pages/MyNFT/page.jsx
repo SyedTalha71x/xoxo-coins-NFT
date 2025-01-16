@@ -150,8 +150,8 @@ export default function NFTTable() {
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-  <table className="w-full border-collapse">
+      <div className="overflow-x-auto max-w-full">
+  <table className="w-full min-w-[800px] border-collapse">
     <thead>
       <tr className="border-b border-gray-700 bg-[#374151]">
         <th className="p-4 text-left">

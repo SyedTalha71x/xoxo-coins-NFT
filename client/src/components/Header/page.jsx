@@ -4,6 +4,7 @@ import XoxoLogo from "../../../public/image 1.png";
 import ProfileLogo from "../../../public/Ellipse 27.png";
 import { Link } from "react-router-dom";
 import XoxoLogo2 from '../../../public/edited_logo.png'
+import Avatar from '../../../public/Avatar.png'
 
 const navItems = [
   { name: "Home", to: "/home" },
@@ -40,7 +41,7 @@ const Page = () => {
 
           <div className="hidden sm:flex items-center">
             <div className="flex items-center space-x-3">
-              <img src={ProfileLogo} width={48} height={48} className="rounded-full" alt="Profile" />
+              <img src={Avatar} width={48} height={48} className="rounded-full" alt="Profile" />
               <div className="flex flex-col justify-start items-start">
                 <span className="text-md font-medium text-white">John Doe</span>
                 <span className="text-sm text-gray-300">john@gmail.com</span>
@@ -85,7 +86,7 @@ const Page = () => {
           <div className="pt-4 pb-3 border-t border-gray-700">
             <div className="flex items-center px-5">
               <div className="flex-shrink-0">
-                <img src={ProfileLogo} width={40} height={40} className="rounded-full" alt="Profile" />
+                <img src={Avatar} width={40} height={40} className="rounded-full" alt="Profile" />
               </div>
               <div className="ml-3">
                 <div className="text-base font-medium text-white">John Doe</div>
