@@ -1,7 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import MagicKey from "../../../public/magic-line.png";
 import InfoButton from "../../../public/info.png";
 import Avatar from "../../../public/Avatar.png";
+
+import CardHeader1 from '../../../public/card-header (1).png'
+import CardHeader2 from '../../../public/card-header2.png'
 
 export default function Page() {
   const [isChecked, setIsChecked] = useState(false);
@@ -16,14 +20,14 @@ export default function Page() {
       title: "Digital Masterpiece #001",
       tokenId: "#6767",
       username: "@Debbie111",
-      image: "../../../public/card-header (1).png",
+      image: "/card-header (1).png",
     },
     {
       id: 2,
-      title: "Digital Masterpiece #001",
-      tokenId: "#6767",
-      username: "@Debbie111",
-      image: "../../../public/card-header2.png",
+      title: "Digital Masterpiece #002",
+      tokenId: "#6768",
+      username: "@Debbie222",
+      image: "/card-header2.png",
     },
   ];
 
@@ -97,7 +101,7 @@ export default function Page() {
               <div className="flex gap-4 overflow-hidden">
                 <div className="h-40 w-40 bg-gray-700  rounded-l-3xl overflow-hidden">
                   <img
-                    src={nft.image || "/placeholder.svg"}
+                    src={nft.image }
                     alt={nft.title}
                     className="w-40 h-40 object-cover  rounded-l-3xl"
                   />
