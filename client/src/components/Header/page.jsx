@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import XoxoLogo from "../../../public/image 1.png";
-import ProfileLogo from "../../../public/Ellipse 27.png";
 import { Link } from "react-router-dom";
 import XoxoLogo2 from '../../../public/edited_logo.png'
 import Avatar from '../../../public/Avatar.png'
@@ -30,7 +28,7 @@ const Page = () => {
           <div className="hidden sm:flex sm:space-x-4 items-center">
             {navItems.map((item, index) => (
               <Link
-                href={item.to}
+                to={item.to}
                 key={index}
                 className="text-white hover:text-blue-500 transition-all duration-300 ease-in-out px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-800"
               >
@@ -75,7 +73,7 @@ const Page = () => {
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navItems.map((item, index) => (
               <Link
-                href={item.to}
+                to={item.to}
                 key={index}
                 className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-blue-500 hover:bg-gray-700"
               >
