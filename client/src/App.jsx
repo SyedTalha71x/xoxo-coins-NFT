@@ -9,6 +9,8 @@ import Header from "./components/Header/page";
 import Home from "./pages/home/page";
 import Footer from "./components/Footer/page";
 import Login from "./pages/login/page";
+import Signup from './pages/Signup/page'
+
 
 import DashboardLayout from "./Layout/DashboardLayout";
 import Overview from "./pages/Overview/page";
@@ -27,7 +29,7 @@ function App() {
 function MainApp() {
   const location = useLocation();
 
-  const hideHeaderFooter = location.pathname.startsWith("/dashboard") || location.pathname === "/";
+  const hideHeaderFooter = location.pathname.startsWith("/dashboard") || location.pathname === "/" || location.pathname === "/signup";
 
   return (
     <div className="">
@@ -36,6 +38,7 @@ function MainApp() {
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Login />} />
+        <Route path="signup" element={<Signup/>}/>
 
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route path="overview" element={<Overview />} />

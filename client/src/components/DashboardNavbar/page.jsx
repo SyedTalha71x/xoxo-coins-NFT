@@ -6,6 +6,7 @@ import Logo from "../../../public/logo2.png";
 import AvatarImage from "../../../public/Avatar.png";
 import { FiMenu } from "react-icons/fi";
 import {  useDarkMode } from "../../Context/StateContext";
+import { Link } from "react-router-dom";
 
 const Page = () => {
   const {setIsSidebarOpen, isSidebarOpen} = useDarkMode();
@@ -19,9 +20,11 @@ const Page = () => {
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         />
       </div>
+      <Link to={"/home"}>
         <div className="max-lg:hidden ">
           <img src={Logo} alt="Logo" className="h-8 w-auto" />
         </div>
+      </Link>
         <div className="flex items-center space-x-4">
           <div>
             <FaBell size={19} className="text-white" />

@@ -120,7 +120,7 @@ export default function Login() {
               <div className=" text-sm">
                 <span className="text-gray-400">Not registered? </span>
                 <Link
-                  href="/create-account"
+                  to="/signup"
                   className="text-blue-500 hover:text-blue-400"
                 >
                   Create account
