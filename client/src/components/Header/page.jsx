@@ -5,11 +5,11 @@ import XoxoLogo2 from '../../../public/edited_logo.png'
 import Avatar from '../../../public/Avatar.png'
 
 const navItems = [
-  { name: "Home", to: "/home" },
+  { name: "Home", to: "/" },
   { name: "Mint NFT", to: "/dashboard/mint-nfts" },
   { name: "Transfer NFT", to: "/dashboard/transfer-nft" },
   { name: "My NFTs", to: "/dashboard/my-nft" },
-  { name: "About", to: "/home" },
+  // { name: "About", to: "/" },
 ];
 
 const Page = () => {

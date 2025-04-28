@@ -1,11 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
-import MagicKey from "../../../public/magic-line.png";
-import InfoButton from "../../../public/info.png";
-import Avatar from "../../../public/Avatar.png";
-
-import CardHeader1 from '../../../public/card-header (1).png'
-import CardHeader2 from '../../../public/card-header2.png'
+import { useEffect, useState } from "react";
+import { FireApi, imageURL } from "../../utils/FireApi";
+import toast from "react-hot-toast";
 
 export default function Page() {
   const [isChecked, setIsChecked] = useState(false);
@@ -13,24 +9,20 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [popularNfts, setPopularNfts] = useState([]);
 
-  const nfts = [
-    {
-      id: 1,
-      title: "Digital Masterpiece #001",
-      tokenId: "#6767",
-      username: "@Debbie111",
-      image: "/card-header (1).png",
-    },
-    {
-      id: 2,
-      title: "Digital Masterpiece #002",
-      tokenId: "#6768",
-      username: "@Debbie222",
-      image: "/card-header2.png",
-    },
-  ];
-
+   const GetPopularNft = async () => {
+      try {
+        setIsLoading(true);
+        const getRes = await FireApi("/get-popular-nfts", "GET");
+        setPopularNfts(getRes);
+      } catch (error) {
+        console.error(error);
+        toast.error(error.message || "Failed to load NFTs");
+      } finally {
+        setIsLoading(false);
+      }
+    };
   const handleNftSelect = (id) => {
     setSelectedNfts((prev) => {
       if (prev.includes(id)) {
@@ -57,6 +49,10 @@ export default function Page() {
       });
     }, 200);
   };
+
+  useEffect(() => {
+    GetPopularNft();
+  }, []);
 
   return (
     <div className="min-h-screen bg-black lg:p-7 md:p-6 sm:p-2 p-2">
@@ -87,7 +83,8 @@ export default function Page() {
             </svg>
           </div>
 
-          {nfts.map((nft) => (
+          {popularNfts.length > 0 ? (
+            popularNfts.map((nft) => (
             <div
               key={nft.id}
               onClick={() => handleNftSelect(nft.id)}
@@ -101,7 +98,7 @@ export default function Page() {
               <div className="flex gap-4 overflow-hidden">
                 <div className="h-40 w-40 bg-gray-700  rounded-l-3xl overflow-hidden">
                   <img
-                    src={nft.image }
+                    src={`${imageURL}${nft?.image_url}`}
                     alt={nft.title}
                     className="w-40 h-40 object-cover  rounded-l-3xl"
                   />
@@ -114,13 +111,13 @@ export default function Page() {
                         <div className="flex gap-1 items-center">
                           <div>
                             <img
-                              src={Avatar || "/placeholder.svg"}
-                              alt=""
+                              src={`${imageURL}${nft?.creator?.profile_image}`}
+                              alt="Avatar.png"
                               className="rounded-full h-4 w-4"
                             />
                           </div>
                           <span className="text-sm text-gray-400">
-                            {nft.username}
+                            @{nft?.creator?.username}
                           </span>
                         </div>
                       </div>
@@ -141,31 +138,38 @@ export default function Page() {
                       </button>
                     </div>
                     <h3 className="text-lg font-medium text-white">
-                      {nft.title}
+                      {nft?.nft_title}
                     </h3>
-                    <p className="text-sm flex justify-between items-center text-gray-400">
+                    {/* <p className="text-sm flex gap-3 items-center text-gray-400">
                       <div>Token ID</div>
-                      <span className="text-white">{nft.tokenId}</span>
+                      <span className="text-white">{nft?.token_id}</span>
+                    </p> */}
+                    <p className="text-sm flex gap-8 items-center text-gray-400">
+                      <div>Price</div>
+                      <span className="text-white">{nft?.amount}</span>
                     </p>
                   </div>
                   <button className="w-full mt-2 flex justify-center items-center py-2 mb-2 text-sm bg-white text-black cursor-pointer rounded-full transition">
                     <img
-                      src={MagicKey || "/placeholder.svg"}
+                      src={"/magic-line.png"}
                       alt="Mint"
                       className="w-5 h-5 mr-2 text-black"
                     />
-                    Mint your First FT
+                    View Details
                   </button>
                 </div>
               </div>
             </div>
-          ))}
+          ))
+        ) : (
+          <p className="text-white">No NFTs found</p>
+        )}
 
-          <div className="rounded-lg bg-[#1F2A37] p-4">
+          {/* <div className="rounded-lg bg-[#1F2A37] p-4">
             <h3 className="text-sm text-white">Additional Details:</h3>
             <div className="mt-2 space-y-2 text-sm">
               <p className="text-white">
-                Token ID: <span className="text-white">12345</span>
+                Token ID: <span className="text-white"></span>
               </p>
               <p className="text-white">
                 IPFS Link:{" "}
@@ -174,7 +178,7 @@ export default function Page() {
                 </a>
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="rounded-lg bg-[#1F2A37] lg:p-7 md:p-5 sm:p-3 p-3">
@@ -182,7 +186,7 @@ export default function Page() {
             Recipient Wallet Address
             <div>
               <img
-                src={InfoButton || "/placeholder.svg"}
+                src={"/info.png"}
                 className="h-5 w-5"
                 alt=""
               />
@@ -251,7 +255,7 @@ export default function Page() {
                   }`}
                 >
                   <img
-                    src={MagicKey || "/placeholder.svg"}
+                    src={"/magic-line.png"}
                     alt="Mint"
                     className="w-5 h-5 mr-2 "
                   />

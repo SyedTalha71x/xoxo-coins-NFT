@@ -6,18 +6,21 @@ import Sidebar from "../components/Sidebar/page";
 import { useDarkMode } from "../Context/StateContext";
 
 const DashboardLayout = () => {
-    const { setIsSidebarOpen, isSidebarOpen } = useDarkMode();
-  
+  const { setIsSidebarOpen, isSidebarOpen } = useDarkMode();
+
   return (
     <div className="min-h-screen bg-black">
-      <DashboardNavbar />
+      {/* Sticky Navbar */}
+      <div className="sticky top-0 z-50">
+        <DashboardNavbar />
+      </div>
       <div className="flex relative">
         <Sidebar />
-        <main className="flex-1 lg:pl-64  min-h-screen overflow-y-auto">
+        <main className="flex-1 lg:pl-64 min-h-screen overflow-y-auto">
           <div className="relative">
-          {isSidebarOpen === true &&  <div className="absolute inset-0 bg-black bg-opacity-50">
-
-</div>}
+            {isSidebarOpen === true && (
+              <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+            )}
             <Outlet />
           </div>
         </main>
