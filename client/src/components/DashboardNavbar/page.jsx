@@ -1,46 +1,77 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { FaBell } from "react-icons/fa";
-import { MdOutlineDashboard } from "react-icons/md";
-import Logo from "../../../public/logo2.png";
-import AvatarImage from "../../../public/Avatar.png";
 import { FiMenu } from "react-icons/fi";
-import {  useDarkMode } from "../../Context/StateContext";
-import { Link } from "react-router-dom";
+import { useDarkMode } from "../../Context/StateContext";
+import { Link, useNavigate } from "react-router-dom";
+import { Menu, MenuItem } from "@mui/material";
+import NotificationMenu from "../DashboardComponents/NotificationMenu";
 
 const Page = () => {
-  const {setIsSidebarOpen, isSidebarOpen} = useDarkMode();
+  const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user-visited-dashboard");
+    navigate("/login");
+  };
+
+  const handleNavigateProfile =() => {
+    navigate("/dashboard/profile");
+  }
+
+  const { setIsSidebarOpen, isSidebarOpen } = useDarkMode();
   return (
     <div className="bg-[#1F2A37]  p-4 border-b-2 sticky top-0 border-black text-white flex items-center">
       <div className="flex justify-between max-lg:justify-end relative items-center w-full ">
-      <div className="lg:hidden absolute left-0">
-        <FiMenu
-          size={20}
-          className="text-white cursor-pointer"
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        />
-      </div>
-      <Link to={"/home"}>
-        <div className="max-lg:hidden ">
-          <img src={Logo} alt="Logo" className="h-8 w-auto" />
+        <div className="lg:hidden absolute left-0">
+          <FiMenu
+            size={20}
+            className="text-white cursor-pointer"
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          />
         </div>
-      </Link>
+        <Link to={"/home"}>
+          <div className="max-lg:hidden ">
+            <img src={"/logo2.png"} alt="Logo" className="h-8 w-auto" />
+          </div>
+        </Link>
         <div className="flex items-center space-x-4">
-          <div>
-            <FaBell size={19} className="text-white" />
-          </div>
+          {/* notification system icon & menu  */}
+          <NotificationMenu />
 
-          <div>
-            <MdOutlineDashboard size={19} className="text-white" />
-          </div>
-
-          <div className="w-8 h-8 rounded-full overflow-hidden">
+          {/* right profile avatar and profile menu  */}
+          <div className="w-8 h-8 rounded-full overflow-hidden cursor-pointer">
             <img
-              src={AvatarImage}
+              src={"/Avatar.png"}
               alt="User Avatar"
               className="w-full h-full object-cover"
+              onClick={handleClick}
             />
           </div>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+            sx={{
+              "& .MuiPaper-root": {
+                ml: -2,
+              },
+            }}
+          >
+            <MenuItem onClick={handleNavigateProfile}>Profile</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </Menu>
         </div>
       </div>
     </div>

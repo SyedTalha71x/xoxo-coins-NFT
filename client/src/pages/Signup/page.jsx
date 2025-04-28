@@ -1,18 +1,38 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import { FireApi } from "../../utils/FireApi";
 
 export default function Page() {
   const [formData, setFormData] = useState({
     email: "",
     username: "",
-    privateKey: "",
-    confirmPrivateKey: "",
-    agreeTerms: false,
+    create_password: "",
+    confirm_password: "",
+    terms_condition: false,
   });
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    const signupFormData = new FormData();
+    signupFormData.append("email", formData.email);
+    signupFormData.append("username", formData.username);
+    signupFormData.append("create_password", formData.create_password);
+    signupFormData.append("confirm_password", formData.confirm_password);
+    signupFormData.append("terms_condition", 'True');
+
+    try {
+      const res = await FireApi("/register", "POST", signupFormData);
+      console.log(res, 'register user')
+      localStorage.setItem("user-visited-dashboard", res.access_token);
+      toast.success("Signup successful");
+      navigate("/dashboard/overview");
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message || "Something went wrong");
+    }
   };
 
   return (
@@ -75,21 +95,21 @@ export default function Page() {
 
                 <div>
                   <label
-                    htmlFor="privateKey"
+                    htmlFor="create_password"
                     className="block text-sm font-medium text-gray-300"
                   >
-                    Create Private Key
+                    Create Password
                   </label>
                   <input
-                    id="privateKey"
-                    name="privateKey"
+                    id="create_password"
+                    name="create_password"
                     type="password"
                     required
                     className="mt-1 block w-full px-3 py-2 bg-gray-400 rounded-md outline-none text-black placeholder-gray-400"
                     placeholder="••••••••"
-                    value={formData.privateKey}
+                    value={formData.create_password}
                     onChange={(e) =>
-                      setFormData({ ...formData, privateKey: e.target.value })
+                      setFormData({ ...formData, create_password: e.target.value })
                     }
                   />
                 </div>
@@ -99,20 +119,20 @@ export default function Page() {
                     htmlFor="confirmPrivateKey"
                     className="block text-sm font-medium text-gray-300"
                   >
-                    Confirm Private Key
+                    Confirm Password
                   </label>
                   <input
-                    id="confirmPrivateKey"
-                    name="confirmPrivateKey"
+                    id="confirm_password"
+                    name="confirm_password"
                     type="password"
                     required
                     className="mt-1 block w-full px-3 py-2 bg-gray-400 rounded-md outline-none text-black placeholder-gray-400"
                     placeholder="••••••••"
-                    value={formData.confirmPrivateKey}
+                    value={formData.confirm_password}
                     onChange={(e) =>
                       setFormData({
                         ...formData,
-                        confirmPrivateKey: e.target.value,
+                        confirm_password: e.target.value,
                       })
                     }
                   />
@@ -120,15 +140,15 @@ export default function Page() {
 
                 <div className="flex items-center">
                   <input
-                    id="agree-terms"
-                    name="agree-terms"
+                    id="terms_condition"
+                    name="terms_condition"
                     type="checkbox"
                     className="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-500 focus:ring-blue-500 focus:ring-offset-gray-800"
-                    checked={formData.agreeTerms}
+                    checked={formData.terms_condition}
                     onChange={(e) =>
                       setFormData({
                         ...formData,
-                        agreeTerms: e.target.checked,
+                        terms_condition: e.target.checked,
                       })
                     }
                   />
@@ -147,21 +167,19 @@ export default function Page() {
                 </div>
               </div>
 
-              <Link to={"/"}>
-                <button
-                  type="submit"
-                  className="w-full flex mt-2 text-black justify-center items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium bg-white"
-                >
-                  <img
-                    src="/magic-line.png"
-                    alt=""
-                    width={20}
-                    height={20}
-                    className="mr-1"
-                  />
-                  Create Account
-                </button>
-              </Link>
+              <button
+                type="submit"
+                className="w-full flex mt-2 text-black justify-center items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium bg-white"
+              >
+                <img
+                  src="/magic-line.png"
+                  alt=""
+                  width={20}
+                  height={20}
+                  className="mr-1"
+                />
+                Create Account
+              </button>
 
               <div className="text-sm">
                 <span className="text-gray-400">Already have an account? </span>

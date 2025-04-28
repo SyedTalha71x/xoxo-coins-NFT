@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Search, Filter, Settings, Download, ChevronLeft, ChevronRight } from 'lucide-react'
 import Avatar from '../../../public/Avatar.png'
 import CardImage from '../../../public/card-header (1).png'
 import { AiOutlineEye } from 'react-icons/ai';
 import CardImage2 from '../../../public/card-header2.png'
+import { FireApi, imageURL } from '../../utils/FireApi';
+import toast from 'react-hot-toast';
 
 const MOCK_NFTS = [
   {
@@ -54,7 +56,10 @@ export default function NFTTable() {
   const [selectedNFTs, setSelectedNFTs] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
-  const [filterType, setFilterType] = useState('all')
+  const [filterType, setFilterType] = useState('all');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [nftList, setNftList] = useState([]);
 //   const itemsPerPage = 10
   const totalPages = 100
 
@@ -73,6 +78,23 @@ export default function NFTTable() {
       setSelectedNFTs([...selectedNFTs, id])
     }
   }
+
+   const GetNftList = async () => {
+        try {
+          setIsLoading(true);
+          const getRes = await FireApi("/get-popular-nfts", "GET");
+          setNftList(getRes);
+        } catch (error) {
+          console.error(error);
+          toast.error(error.message || "Failed to load NFTs");
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+  useEffect(() => {
+    GetNftList();
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#0C0C0C] text-white lg:p-6 md:p-5 sm:p-2 p-2">
@@ -169,7 +191,7 @@ export default function NFTTable() {
       </tr>
     </thead>
     <tbody>
-      {MOCK_NFTS.map((nft) => (
+      {nftList.length > 0 ? nftList.map((nft) => (
         <tr 
           key={nft.id} 
           className={`border-b border-gray-700 hover:bg-[#2C3B4E] transition-colors ${
@@ -187,32 +209,32 @@ export default function NFTTable() {
           <td className="p-4 text-sm">
             <div className="flex items-center gap-3">
               <img
-                src={nft.thumbnail || "/placeholder.svg"}
-                alt={nft.title}
+                src={`${imageURL}${nft?.image_url}`}
+                alt={nft?.nft_title}
                 className="rounded h-8 w-8"
               />
-              <span className="font-medium">{nft.title}</span>
+              <span className="font-medium">{nft?.nft_title}</span>
             </div>
           </td>
           <td className="p-4 bg-black text-sm">
             <div className="flex items-center gap-2">
               <img
-                src={nft.creator.avatar || "/placeholder.svg"}
-                alt={nft.creator.name}
+                src={`${imageURL}${nft?.creator?.profile_image}`}
+                alt={nft?.creator?.username}
                 width={32}
                 height={32}
                 className="rounded-full"
               />
-              <span>{nft.creator.name}</span>
+              <span>{nft?.creator?.username}</span>
             </div>
           </td>
-          <td className="p-4 text-sm text-gray-300">{nft.mintDate}</td>
+          <td className="p-4 text-sm text-gray-300">{nft?.created_at}</td>
           <td className="p-4 flex items-center gap-2">
             <AiOutlineEye className="text-white h-5 w-5 cursor-pointer" />
             <button className="text-white text-sm hover:text-blue-300">View Details</button>
           </td>
         </tr>
-      ))}
+      )) : <p>No Nft List found</p>}
     </tbody>
   </table>
 </div>

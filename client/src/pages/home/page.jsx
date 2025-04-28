@@ -1,8 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import HomeImage from "../../../public/Mosaic.png";
-import NFTbutton from "../../../public/button.png";
-import MagicKey from "../../../public/magic-line.png";
 import { Link } from "react-router-dom";
 
 const Page = () => {
@@ -21,22 +18,26 @@ const Page = () => {
               </h2>
               <div className="flex flex-wrap gap-4">
                 <Link to={"/dashboard/mint-nfts"}>
-                <button className="inline-flex items-center gap-1 px-8 py-3 border border-transparent text-base font-medium rounded-full  text-black bg-white hover:bg-slate-200 transition-all duration-300 ease-in-out  shadow-2xl">
-                  <img src={MagicKey} className="" alt="" />
-                  Mint your First FT
-                </button>
+                  <button className="inline-flex items-center gap-1 px-8 py-3 border border-transparent text-base font-medium rounded-full  text-black bg-white hover:bg-slate-200 transition-all duration-300 ease-in-out  shadow-2xl">
+                    <img src={"/magic-line.png"} className="" alt="" />
+                    Mint your First FT
+                  </button>
                 </Link>
 
                 <button className="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-full text-white bg-[#121212] ">
-                  <img src={MagicKey} className="filter invert" alt="" />
-                   Learn More
+                  <img
+                    src={"/magic-line.png"}
+                    className="filter invert"
+                    alt=""
+                  />
+                  Learn More
                 </button>
               </div>
             </div>
             <div>
               <div>
                 <img
-                  src={HomeImage}
+                  src={"/Mosaic.png"}
                   alt="Main NFT character"
                   className="w-full h-full object-cover"
                 />

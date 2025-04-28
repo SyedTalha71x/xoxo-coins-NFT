@@ -1,28 +1,46 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import LoginImage from "../../../public/Mosaic.png";
-import Logo from "../../../public/XMLID_127_.png";
-import MagicKey from "../../../public/magic-line.png";
+import { Link, useNavigate } from "react-router-dom";
+import { FireApi } from "../../utils/FireApi";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const [formData, setFormData] = useState({
     email: "",
-    privateKey: "",
-    rememberMe: false,
+    password: "",
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-  };
+  const navigate = useNavigate();
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    const formDataToSend = new FormData();
+    formDataToSend.append("email", formData.email);
+    formDataToSend.append("password", formData.password);
+    
+    console.log("Form submitted:", formData);
+    try {
+      const res = await FireApi("/login", "POST", formDataToSend);
+      console.log("Login success:", res);
+      localStorage.setItem("user-visited-dashboard", res.access_token);
+      toast.success("Login successful");
+      navigate("/dashboard/overview");
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message || "Something went wrong");
+    }
+  };
   return (
-    <div className=" min-h-screen bg-[#0C0C0C]  flex p-6">
+    <div className="min-h-screen bg-[#0C0C0C] flex p-6">
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8 border-2 border-white rounded-md bg-[#1F2A37] p-6">
           <div className="">
             <div className="text-center flex justify-center items-center flex-col">
-              <img src={Logo} alt="XOXO COINS" className="h-10 w-auto" />
+              <img
+                src={"/XMLID_127_.png"}
+                alt="XOXO COINS"
+                className="h-10 w-auto"
+              />
             </div>
             <h2 className="mt-6 text-xl font-semibold text-white">
               Sign in to our platform
@@ -30,8 +48,8 @@ export default function Login() {
           </div>
 
           <div className="">
-            <form className="mt-8  space-y-6" onSubmit={handleSubmit}>
-              <div className="space-y-4 ">
+            <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+              <div className="space-y-4">
                 <div>
                   <label
                     htmlFor="email"
@@ -44,7 +62,7 @@ export default function Login() {
                     name="email"
                     type="email"
                     required
-                    className="mt-1 block text-sm w-full px-3 py-2 bg-gray-400  rounded-md outline-none text-black placeholder-gray-400 "
+                    className="mt-1 block text-sm w-full px-3 py-2 bg-gray-400 rounded-md outline-none text-black placeholder-gray-400"
                     placeholder="name@company.com"
                     value={formData.email}
                     onChange={(e) =>
@@ -55,21 +73,21 @@ export default function Login() {
 
                 <div>
                   <label
-                    htmlFor="privateKey"
+                    htmlFor="password"
                     className="block text-sm font-medium text-gray-300"
                   >
-                    Enter Private Key
+                    Enter Password
                   </label>
                   <input
-                    id="privateKey"
-                    name="privateKey"
+                    id="password"
+                    name="password"
                     type="password"
                     required
-                    className="mt-1 block w-full px-3 py-2 bg-gray-400  rounded-md outline-none text-black placeholder-gray-400 "
+                    className="mt-1 block w-full px-3 py-2 bg-gray-400 rounded-md outline-none text-black placeholder-gray-400"
                     placeholder="••••••••"
-                    value={formData.privateKey}
+                    value={formData.password}
                     onChange={(e) =>
-                      setFormData({ ...formData, privateKey: e.target.value })
+                      setFormData({ ...formData, password: e.target.value })
                     }
                   />
                 </div>
@@ -107,17 +125,15 @@ export default function Login() {
                 </div>
               </div>
 
-              <Link to={"/home"}>
-                <button
-                  type="submit"
-                  className="w-full flex mt-2 text-black justify-center items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium  bg-white"
-                >
-                  <img src={MagicKey} alt="" className="mr-1" />
-                  Login with Private Key
-                </button>
-              </Link>
+              <button
+                type="submit"
+                className="w-full flex mt-2 text-black justify-center items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium bg-white"
+              >
+                <img src={"/magic-line.png"} alt="" className="mr-1" />
+                Login with Private Key
+              </button>
 
-              <div className=" text-sm">
+              <div className="text-sm">
                 <span className="text-gray-400">Not registered? </span>
                 <Link
                   to="/signup"
@@ -134,7 +150,7 @@ export default function Login() {
       <div className="hidden lg:flex flex-1 relative">
         <div>
           <img
-            src={LoginImage}
+            src={"/Mosaic.png"}
             alt="Main NFT character"
             className="w-full h-full object-cover"
           />
